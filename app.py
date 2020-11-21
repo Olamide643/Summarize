@@ -13,7 +13,6 @@ from keras.preprocessing.text import Tokenizer
 model = load_model("Sentiment_Analysis_on_TR")
 with open('tokenize.pickle', 'rb') as handle:
     tokenizer = pickle.load(handle)
-Stopwords = {'under', 'do', 'because', "don't", 'with', 'can', 'mustn', 'our', 'am', "should've", 'over', 'few', 'yourself', 'what', 's', "hasn't", 'were', 'now', "weren't", 'to', "you're", 'd', 'some', 'being', 'the', "haven't", 'wasn', "aren't", "couldn't", "wouldn't", 'where', 'don', 'having', 'so', 'at', 'hasn', 'is', 'more', 'only', 'same', "needn't", 'an', 'most', 'very', 're', 'who', 'not', "she's", 'herself', 'you', 'them', 'mightn', 'she', 'that', 'there', "shan't", 'below', 'again', 'shouldn', 'haven', 'we', 'he', 'been', 'itself', 'their', 'between', "won't", 'her', 'into', 'of', 'hers', "didn't", 'off', 'further', "that'll", 'did', 'than', 'll', 'me', "isn't", 'had', 'whom', 'it', 'have', "you'll", 'then', 'before', 'ours', 'down', 'all', 'yourselves', 'y', 'after', 'or', 'his', 'out', 'why', 'if', 'i', 'ain', 'which', 'didn', 'should', 'won', 'how', 'on', 'other', 'as', 'him', 'shan', 'hadn', 'above', 'each', 'until', 'for', 'needn', 'o', 'aren', 'they', "you've", 'doing', 'from', 'isn', 'himself', 'weren', "hadn't", 'its', 'this', 'myself', 'will', 'in', 'yours', 'through', "shouldn't", 'such', 'has', 'and', "mightn't", 'be', 'wouldn', 'was', "mustn't", 'couldn', 'ourselves', 'here', 've', 'own', 'while', 'once', "doesn't", "it's", 'theirs', 'doesn', 'are', 'those', 'm', 'these', 'any', 'no', 't', 'themselves', 'does', 'during', 'just', "wasn't", 'by', 'a', 'nor', 'my', 'about', 'too', 'against', "you'd", 'both', 'ma', 'but', 'up', 'when', 'your'}
 app = Flask(__name__)
 
 @app.route('/', methods = ['POST'])
@@ -48,7 +47,8 @@ def classify():
 
     
         text_ = content.lower()
-        Stopwords = set(Stopwords)
+        stop = {'under', 'do', 'because', "don't", 'with', 'can', 'mustn', 'our', 'am', "should've", 'over', 'few', 'yourself', 'what', 's', "hasn't", 'were', 'now', "weren't", 'to', "you're", 'd', 'some', 'being', 'the', "haven't", 'wasn', "aren't", "couldn't", "wouldn't", 'where', 'don', 'having', 'so', 'at', 'hasn', 'is', 'more', 'only', 'same', "needn't", 'an', 'most', 'very', 're', 'who', 'not', "she's", 'herself', 'you', 'them', 'mightn', 'she', 'that', 'there', "shan't", 'below', 'again', 'shouldn', 'haven', 'we', 'he', 'been', 'itself', 'their', 'between', "won't", 'her', 'into', 'of', 'hers', "didn't", 'off', 'further', "that'll", 'did', 'than', 'll', 'me', "isn't", 'had', 'whom', 'it', 'have', "you'll", 'then', 'before', 'ours', 'down', 'all', 'yourselves', 'y', 'after', 'or', 'his', 'out', 'why', 'if', 'i', 'ain', 'which', 'didn', 'should', 'won', 'how', 'on', 'other', 'as', 'him', 'shan', 'hadn', 'above', 'each', 'until', 'for', 'needn', 'o', 'aren', 'they', "you've", 'doing', 'from', 'isn', 'himself', 'weren', "hadn't", 'its', 'this', 'myself', 'will', 'in', 'yours', 'through', "shouldn't", 'such', 'has', 'and', "mightn't", 'be', 'wouldn', 'was', "mustn't", 'couldn', 'ourselves', 'here', 've', 'own', 'while', 'once', "doesn't", "it's", 'theirs', 'doesn', 'are', 'those', 'm', 'these', 'any', 'no', 't', 'themselves', 'does', 'during', 'just', "wasn't", 'by', 'a', 'nor', 'my', 'about', 'too', 'against', "you'd", 'both', 'ma', 'but', 'up', 'when', 'your'}
+        Stopwords = set(stop)
         word_freq = {}
         for word in word_tokenize(text_):
             if word not in Stopwords:
