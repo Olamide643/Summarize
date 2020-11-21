@@ -8,7 +8,7 @@ from flask import Flask, jsonify, request
 import pickle 
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import load_model
-from keras.preprocessing.text import Tokenizer
+
 # Loading the models 
 model = load_model("Sentiment_Analysis_on_TR")
 with open('tokenize.pickle', 'rb') as handle:
